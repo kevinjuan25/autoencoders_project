@@ -101,6 +101,7 @@ for i in range(1000):
     print("Step: {} | Energy: {}".format(i, TE))
     integrator.step(1)
 
+np.savetxt('mb_traj.dat', xy, header='x [nm]    y [nm]    z [nm]')
 
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
