@@ -35,7 +35,7 @@ simulation.minimizeEnergy()
 print("Energy Minimization Done!")
 
 # Save energy minimized positions to PDB file (for VMD init state)
-print('Saving Positions")
+print("Saving Positions")
 positions = simulation.context.getState(getPositions=True).getPositions()
 PDBFile.writeFile(simulation.topology, positions, open('ala_minimized.pdb', 'w'))
 print('Done')
