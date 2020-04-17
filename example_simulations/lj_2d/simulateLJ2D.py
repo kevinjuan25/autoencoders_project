@@ -1,6 +1,6 @@
 """
 @author Akash Pallath
-Example OpenMM simulation of Lennard-Jones fluid in a box
+Example OpenMM simulation of 2-D Lennard-Jones particles
 Dependencies:
 - OpenMM
 - multiprocessing
@@ -20,7 +20,7 @@ import multiprocessing as mp
 num_threads = str(mp.cpu_count())
 
 """Basic parameters"""
-n = 1000 #number of particles
+n = 200 #number of particles
 rho_reduced  = 0.05 #reduced density
 mass = 39.9 * amu #mass of argon
 sigma = 3.4 * angstroms
@@ -29,9 +29,9 @@ epsilon = 0.238 * kilocalories_per_mole #argon
 system = System()
 
 #set box size
-rho_actual = rho_reduced/(sigma**3)
+rho_actual = rho_reduced/(sigma**2)
 volume = n/rho_actual
-box_edge = volume ** (1/3)
+box_edge = volume ** (1/2)
 a = Quantity((box_edge,     0 * angstrom, 0 * angstrom))
 b = Quantity((0 * angstrom, box_edge,     0 * angstrom))
 c = Quantity((0 * angstrom, 0 * angstrom, box_edge))
@@ -65,12 +65,13 @@ for i in range(n):
 #Generate random particle positions using Latin Hypercube Sampling
 pos = Quantity(np.zeros([n, 3], np.float32), nanometers)
 box_vectors = system.getDefaultPeriodicBoxVectors()
-#generate samples on a latin hypercube grid (1x1x1)
-x = lhs(3, samples=n)
-#scale and set positions
-for dim in range(3):
+#generate samples on a latin hypercube grid (1x1)
+x = lhs(2, samples=n)
+#scale and set x, y positions (z-position is 0)
+for dim in range(2):
     l = box_vectors[dim][dim] #diagonal element = length of box
     pos[:, dim] = Quantity(x[:, dim] * l / l.unit, l.unit)
+pos[:,2] = Quantity(box_edge/(2*box_edge.unit), box_edge.unit)
 
 """Add nonbonded interactions to system and prepare topology"""
 system.addForce(f)
@@ -80,6 +81,12 @@ chain = top.addChain()
 for i in range(system.getNumParticles()):
     residue = top.addResidue('Ar', chain)
     top.addAtom('Ar', element, residue)
+
+"""Add a restraining potential at z=0 to keep particles in 2-D plane"""
+rest_f = openmm.CustomExternalForce('1000 * (z-{})^2'.format(box_edge/(2*angstroms*10))) #angstrom -> nm conversion
+for i in range(n):
+    rest_f.addParticle(i, [])
+system.addForce(rest_f)
 
 #define simulation variables
 temp = 298.15*kelvin
