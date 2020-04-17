@@ -22,7 +22,7 @@ Contains Python scripts for OpenMM simulations of:
 - 2-D particles on a Muller-Brown potential energy surface
 - Hard sphere alkane (TraPPE potential) in vacuum (or non-interacting SPC/E water) (References: 
 [Martin and Siepmann](https://pubs.acs.org/doi/pdf/10.1021/jp972543%2B)
-[Ferguson et al](https://pubs.acs.org/doi/pdf/10.1021/jp811229q`))
+[Ferguson et al](https://pubs.acs.org/doi/pdf/10.1021/jp811229q))
 - Alanine dipeptide in water
 
 ## Modified GROMACS topology files (for OpenMM to read)
