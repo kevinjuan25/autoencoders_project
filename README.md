@@ -9,6 +9,7 @@ demonstrating various capabilities of OpenMM.
 
 Systems modelled:
 - Protein in water
+- Methane in water, configuration and topology generated using `gmx pdb2gmx` and `gmx solvate` utilities
 - Box of water
 - Box of gaseous Lennard-Jones particles
 - 2-D Lennard-Jones particles
@@ -19,12 +20,13 @@ Systems modelled:
 
 Contains Python scripts for OpenMM simulations of:
 - 2-D particles on a Muller-Brown potential energy surface
-- Butane in water
+- Hard sphere alkane (TraPPE potential) in vacuum (or non-interacting SPC/E water) (References: 
+[Martin and Siepmann](https://pubs.acs.org/doi/pdf/10.1021/jp972543%2B)
+[Ferguson et al](https://pubs.acs.org/doi/pdf/10.1021/jp811229q`))
 - Alanine dipeptide in water
 
-## Umbrella sampling demo
+## Modified GROMACS topology files (for OpenMM to read)
 
-`umbrella_sampling_demo`
+`GMX_TOP`
 
-This directory contains umbrella sampling code for a system of particles on a 2-D Muller-Brown potential energy surface.
-
+Can modify topology files in this directory and include them in OpenMM simulation scripts.
