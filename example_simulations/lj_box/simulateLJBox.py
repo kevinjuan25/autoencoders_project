@@ -1,6 +1,11 @@
 """
 @author Akash Pallath
 Example OpenMM simulation of Lennard-Jones fluid in a box
+Dependencies:
+- OpenMM
+- multiprocessing
+- pyDOE
+- numpy
 """
 
 from simtk.openmm.app import *
