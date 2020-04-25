@@ -12,7 +12,7 @@ class ForceModule(torch.nn.Module):
         return torch.sum(positions ** 2)
 
 class ForceModulePBC(torch.nn.Module):
-    def forwarf(self, positions, boxvectors):
+    def forward(self, positions, boxvectors):
         boxsize = boxvectors.diag()
         pbc_pos = positions - torch.floor(positions / boxsize) * boxsize
         return torch.sum(pbc_pos ** 2)
