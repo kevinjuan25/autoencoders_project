@@ -15,4 +15,4 @@ class ForceModule(torch.nn.Module):
 
 harmonic = ForceModule()
 module = torch.jit.script(ForceModule())
-module.save('harmonic_ala.pt')
+module.save('harmonic_pbc.pt')
