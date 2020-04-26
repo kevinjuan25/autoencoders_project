@@ -1,13 +1,3 @@
-COMPND    METHANE
-AUTHOR    AKASH
-HETATM    1  C   CH4     1      -0.370   0.900   0.000  1.00  0.00           C
-HETATM    2  H1  CH4     1       0.700   0.900   0.000  1.00  0.00           H
-HETATM    3  H2  CH4     1      -0.727   0.122   0.643  1.00  0.00           H
-HETATM    4  H3  CH4     1      -0.727   0.731  -0.995  1.00  0.00           H
-HETATM    5  H4  CH4     1      -0.727   1.845   0.351  1.00  0.00           H
-CONECT    1    2    3    4    5
-CONECT    2    1
-CONECT    3    1
-CONECT    4    1
-CONECT    5    1
-END
+version https://git-lfs.github.com/spec/v1
+oid sha256:f418eb78c0b95970cd6a60c4f3319fea7288d9d3eee79b39cf0186f4e35576ab
+size 533
