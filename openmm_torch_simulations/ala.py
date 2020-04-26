@@ -20,12 +20,13 @@ os.chdir('..')
 pdb_file = os.path.abspath('./pdb_files/alanine_dipeptide.pdb')
 
 pdb = PDBFile(pdb_file)
+os.chdir('./openmm_torch_simulations/')
 forcefield = ForceField('amber99sb.xml', 'tip3p.xml')
 modeller = Modeller(pdb.topology, pdb.positions)
 modeller.addSolvent(forcefield, model='tip3p', boxSize=Vec3(3, 3, 3) * nanometers, ionicStrength=0 * molar)
 system = forcefield.createSystem(modeller.topology, nonbondedMethod=PME, nonbondedCutoff=1.0 * nanometers, constraints=AllBonds, ewaldErrorTolerance=0.0005)
-harmonic = TorchForce('./openmm_torch_simulations/harmonic.pt')
-# harmonic.setUsesPeriodicBoundaryConditions(True)
+harmonic = TorchForce('harmonic_ala.pt')
+harmonic.setUsesPeriodicBoundaryConditions(True)
 system.addForce(harmonic)
 integrator = LangevinIntegrator(300 * kelvin, 1 / picosecond, 2 * femtoseconds)
 platform = Platform.getPlatformByName('CPU')
@@ -46,7 +47,7 @@ print('Done')
 
 # Add reporters in the beginning, later, discard equilibration region
 simulation.reporters.append(StateDataReporter("state.txt", 1000, step=True, potentialEnergy=True, temperature=True))
-simulation.reporters.append(PDBReporter('./openmm_torch_simulations/ala_output.pdb', 1000))
+simulation.reporters.append(PDBReporter('ala_output.pdb', 1000))
 
 # Equilibration
 print("Begin Equilibration...")

@@ -75,8 +75,8 @@ friction = 100 / picosecond
 timestep = 10.0 * femtosecond
 
 # Initial Position
-# init_coord = np.array([[1.0, 1.75, 0]])
-init_coord = (np.random.rand(n, 3) * np.array([2.7, 1.8, 1])) + np.array([-1.5, -0.2, 0])
+init_coord = np.array([[0, 0, 0]])
+# init_coord = (np.random.rand(n, 3) * np.array([2.7, 1.8, 1])) + np.array([-1.5, -0.2, 0])
 
 # Main Simulation
 system = System()
