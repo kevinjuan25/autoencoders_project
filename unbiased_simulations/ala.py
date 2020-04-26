@@ -39,7 +39,7 @@ simulation.context.setPositions(modeller.positions)
 
 # Output to console
 simulation.reporters.append(StateDataReporter(stdout, 1000, step=True,
-        potentialEnergy=True, temperature=True))
+        potentialEnergy=True, temperature=True, volume=True, remainingTime=True, totalSteps=65000))
 
 # Energy Minimization
 print("Begin Energy Minimization...")
@@ -53,7 +53,7 @@ PDBFile.writeFile(simulation.topology, positions, open('./ala_minimized.pdb', 'w
 print("Done")
 
 # Add reporters in the beginning, later, discard equilibration region
-simulation.reporters.append(StateDataReporter('./state.txt', 1000, step=True, potentialEnergy=True, temperature=True))
+simulation.reporters.append(StateDataReporter('./state.txt', 1000, step=True, potentialEnergy=True, temperature=True, volume=True))
 simulation.reporters.append(PDBReporter('./ala_output.pdb', 1000))
 
 # Equilibration

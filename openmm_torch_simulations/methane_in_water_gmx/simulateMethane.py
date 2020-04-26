@@ -47,8 +47,8 @@ PDBFile.writeFile(simulation.topology, positions, open('eminimized.pdb', 'w'))
 print("Done")
 
 #append data every 100 steps
-simulation.reporters.append(StateDataReporter(stdout, 100, step=True, potentialEnergy=True, temperature=True))
-simulation.reporters.append(StateDataReporter("state.txt", 100, step=True, potentialEnergy=True, temperature=True))
+simulation.reporters.append(StateDataReporter(stdout, 100, step=True, potentialEnergy=True, temperature=True, volume=True, remainingTime=True, totalSteps=20000))
+simulation.reporters.append(StateDataReporter("state.txt", 100, step=True, potentialEnergy=True, temperature=True, volume=True))
 #append structures to PDB every 500 steps
 simulation.reporters.append(PDBReporter('traj.pdb', 500))
 #create (rewrite) checkpoint every 5000 steps

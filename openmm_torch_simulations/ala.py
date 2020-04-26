@@ -45,11 +45,11 @@ simulation.context.setPositions(modeller.positions)
 
 # Output to console
 simulation.reporters.append(StateDataReporter(stdout, 1, step=True,
-        potentialEnergy=True, temperature=True))
+        potentialEnergy=True, temperature=True, volume=True, remainingTime=True, totalSteps=65000))
 
 # Energy Minimization
 print("Begin Energy Minimization...")
-simulation.minimizeEnergy(maxIterations=1000)
+simulation.minimizeEnergy()
 print("Energy Minimization Done!")
 
 # Save energy minimized positions to PDB file (for VMD init state)
