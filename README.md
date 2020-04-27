@@ -20,10 +20,27 @@ Systems modelled:
 
 Contains Python scripts for OpenMM simulations of:
 - 2-D particles on a Muller-Brown potential energy surface
-- Hard sphere alkane (TraPPE potential) in vacuum (or non-interacting SPC/E water) (References: 
+- Alanine dipeptide in water
+- Alkane in vacuum (or non-interacting SPC/E water) (References: 
 [Martin and Siepmann](https://pubs.acs.org/doi/pdf/10.1021/jp972543%2B)
 [Ferguson et al](https://pubs.acs.org/doi/pdf/10.1021/jp811229q))
+
+## Test simulations with openmm-torch:
+
+`openmm_torch_test_simulations`
+
+Contains Python scripts for test simulations using OpenMM-torch to add biasing forces on
+- 2-D particles on a Muller-Brown potential energy surface
 - Alanine dipeptide in water
+- Methane in water
+
+## Reference autoencoder model:
+
+`autoencoder_model_MNIST_ref`
+
+Contains code for PyTorch model of an autoencoder trained on the MNIST dataset. 
+
+TODO: modify this architecture and the code to run on an mb_particle trajectory dataset.
 
 ## Modified GROMACS topology files (for OpenMM to read)
 
