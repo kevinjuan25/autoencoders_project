@@ -36,11 +36,9 @@ Contains Python scripts for test simulations using OpenMM-torch to add biasing f
 
 ## Reference autoencoder model:
 
-`autoencoder_model_MNIST_ref`
+`autoencoder`
 
-Contains code for PyTorch model of an autoencoder trained on the MNIST dataset. 
-
-TODO: modify this architecture and the code to run on an mb_particle trajectory dataset.
+Contains code for PyTorch model to train an autoencoder on an MB particle trajectory
 
 ## Modified GROMACS topology files (for OpenMM to read)
 
