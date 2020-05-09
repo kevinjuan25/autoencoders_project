@@ -21,9 +21,6 @@ Systems modelled:
 Contains Python scripts for OpenMM simulations of:
 - 2-D particles on a Muller-Brown potential energy surface
 - Alanine dipeptide in water
-- Alkane in vacuum (or non-interacting SPC/E water) (References: 
-[Martin and Siepmann](https://pubs.acs.org/doi/pdf/10.1021/jp972543%2B)
-[Ferguson et al](https://pubs.acs.org/doi/pdf/10.1021/jp811229q))
 
 ## Test simulations with openmm-torch:
 
