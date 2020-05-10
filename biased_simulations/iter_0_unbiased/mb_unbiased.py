@@ -20,7 +20,6 @@ import matplotlib.animation as animation
 
 num_threads = str(mp.cpu_count())
 
-
 class MullerBrown(CustomExternalForce):
     a = [-1, -1, -6.5, 0.7]
     b = [0, 0, 11, 0.6]
@@ -63,7 +62,6 @@ class MullerBrown(CustomExternalForce):
         plt.xlabel("$x$")
         plt.ylabel("$y$")
         ani.save('mb_traj.mp4', writer='ffmpeg', bitrate=10000, dpi=300)
-
 
 # Simulation Parameters
 n = 1

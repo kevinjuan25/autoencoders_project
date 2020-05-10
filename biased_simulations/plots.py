@@ -14,7 +14,7 @@ import pickle #for loading saved model
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--file", help="File containing trained Autoencoder model (default: trained_convnet.pkl)")
+parser.add_argument("--file", help="File containing trained autoencoder model (default: trained_convnet.pkl)")
 parser.add_argument("--show", action="store_true", help="Show interactive matplotlib plots")
 parser.add_argument("--lossoutfile", help="File to save output image of loss history to (default: loss_history_<num_epochs>.png")
 

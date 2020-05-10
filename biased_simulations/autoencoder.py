@@ -22,20 +22,20 @@ class AE(nn.Module):
         super(AE, self).__init__()
 
         # Encoder layers
-        self.enc1L = nn.Linear(3, 4)
-        self.enc1A = nn.ReLU()
-        self.enc2L = nn.Linear(4, 2)
-        self.enc2A = nn.ReLU()
-        self.enc3L = nn.Linear(2, 1)
-        self.enc3A = nn.ReLU()
+        self.enc1L = nn.Linear(3, 8)
+        self.enc1A = nn.Tanh()
+        self.enc2L = nn.Linear(8, 4)
+        self.enc2A = nn.Tanh()
+        self.enc3L = nn.Linear(4, 1)
+        self.enc3A = nn.Tanh()
 
         # Decoder layers
-        self.dec1L = nn.Linear(1, 2)
-        self.dec1A = nn.ReLU()
-        self.dec2L = nn.Linear(2, 4)
-        self.dec2A = nn.ReLU()
-        self.dec3L = nn.Linear(4, 3)
-        self.dec3A = nn.ReLU()
+        self.dec1L = nn.Linear(1, 4)
+        self.dec1A = nn.Tanh()
+        self.dec2L = nn.Linear(4, 8)
+        self.dec2A = nn.Tanh()
+        self.dec3L = nn.Linear(8, 3)
+        self.dec3A = nn.Tanh()
 
         #Bias variables
         self.bias_around = 0 #bias around this value of latent variable
@@ -62,12 +62,12 @@ class AE(nn.Module):
     def forward(self, x):
         #forward is used for umbrella sampling
         c = self.encoder(x)
-        return self.bias_strength * (c - self.bias_value)**2
+        return self.bias_strength * (c - self.bias_around)**2
 
 class AE_model:
     def __init__(self, datafile='mb_traj.dat'):
         # Hyperparameters
-        self.LRATE = 3e-4
+        self.LRATE = 1e-3
 
         # Dataset parameters
         self.datafile = datafile
@@ -139,9 +139,9 @@ class AE_model:
                 start_time = timeit.default_timer()
                 self.train_time += elapsed
 
-                print ('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f, Time: %2fs'
-                       %(epoch + self.last_epoch + 1, self.last_epoch + num_epochs, \
-                       it+1, int(np.ceil(self.train_size/batch_size)), loss.data, elapsed))
+                #print ('Epoch [%d/%d], Iter [%d/%d] Loss: %.4f, Time: %2fs'
+                #       %(epoch + self.last_epoch + 1, self.last_epoch + num_epochs, \
+                #       it+1, int(np.ceil(self.train_size/batch_size)), loss.data, elapsed))
 
                 epochlosses.append(loss.data.numpy())
 
@@ -149,11 +149,12 @@ class AE_model:
             epochloss = np.mean(np.array(epochlosses))
             loss_history.append([epoch + self.last_epoch + 1, epochloss])
 
-            print("Epoch [{}/{}], Training loss: {:.4f}".format(\
-                epoch + self.last_epoch + 1, self.last_epoch + num_epochs, epochloss))
+            if (epoch + 1) % 100 == 0:
+                # Print epoch train loss
+                print("Epoch [{}/{}], Training loss: {:.4f}".format(\
+                    epoch + self.last_epoch + 1, self.last_epoch + num_epochs, epochloss), end="\t")
 
-            # Calculate epoch test loss every X epochs
-            if epoch % 1 == 0:
+                # Calculate epoch test loss
                 for it, (features, labels) in enumerate(test_loader):
                     # Forward pass
                     latent = self.net.encoder(features)
@@ -166,6 +167,7 @@ class AE_model:
                 testepochloss = np.mean(np.array(testepochlosses))
                 test_loss_history.append([epoch + self.last_epoch + 1, testepochloss])
 
+                # Print epoch test loss
                 print("Epoch [{}/{}], Testing loss = {:.4f}".format(\
                     epoch + self.last_epoch + 1, self.last_epoch + num_epochs, testepochloss))
 
@@ -179,4 +181,4 @@ class AE_model:
         self.net.bias_around = bias_around
         self.net.bias_strength = bias_strength
         module = torch.jit.script(self.net)
-        module.save(filename)
+        torch.jit.save(module, filename)

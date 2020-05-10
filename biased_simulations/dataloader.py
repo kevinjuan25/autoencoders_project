@@ -18,8 +18,13 @@ class MB_traj_dataset(Dataset):
             if l[0]!='#':
                 self.traj.append([float(i) for i in l.strip().split()])
         self.traj = np.array(self.traj)
-        #don't normalize data - gives z-dimension data equal importance which it
-        #does not deserve. Model doesn't need to learn variation in z-direction
+        #normalize data
+        #mu = np.mean(self.traj, axis=0)
+        #std = np.std(self.traj, axis=0)
+        #self.traj = (self.traj - mu)/std
+        print(np.mean(self.traj, 0))
+        print(np.std(self.traj, 0))
+        self.traj[:,2] = self.traj[:,2] * 1e-4
 
     def __len__(self):
         return len(self.traj)
@@ -34,7 +39,7 @@ class MB_traj_dataset(Dataset):
 
 # Test
 if __name__ == '__main__':
-    test_dataset = MB_traj_dataset('mb_traj.dat')
+    test_dataset = MB_traj_dataset('iter_0_unbiased/mb_traj.dat')
     test_loader = DataLoader(test_dataset, batch_size=128, shuffle=True)
     for idx, (frames, _) in enumerate(test_loader):
         print(frames)
