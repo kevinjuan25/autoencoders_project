@@ -146,7 +146,7 @@ xv = np.transpose(np.vstack((x, v)))
 np.savetxt(dataprefix+'_v.dat', xv, header='cv      v')
 
 """Select CV bias points based on formula in Ferguson and Chen"""
-bias_pts = [0.15, -0.15]
+bias_pts = [1.322931349277496338e-01, 6.727975606918334961e-01, 2.223772108554840088e-01, -4.982953667640686035e-01]
 
 """Save animations of true and reconstructed trajectories with bias points"""
 biases = np.array(bias_pts).reshape(-1, 1)

@@ -22,20 +22,24 @@ class AE(nn.Module):
         super(AE, self).__init__()
 
         # Encoder layers
-        self.enc1L = nn.Linear(3, 8)
+        self.enc1L = nn.Linear(3, 64)
         self.enc1A = nn.Tanh()
-        self.enc2L = nn.Linear(8, 4)
+        self.enc2L = nn.Linear(64, 32)
         self.enc2A = nn.Tanh()
-        self.enc3L = nn.Linear(4, 1)
+        self.enc3L = nn.Linear(32, 16)
         self.enc3A = nn.Tanh()
+        self.enc4L = nn.Linear(16, 1)
+        self.enc4A = nn.Tanh()
 
         # Decoder layers
-        self.dec1L = nn.Linear(1, 4)
+        self.dec1L = nn.Linear(1, 16)
         self.dec1A = nn.Tanh()
-        self.dec2L = nn.Linear(4, 8)
+        self.dec2L = nn.Linear(16, 32)
         self.dec2A = nn.Tanh()
-        self.dec3L = nn.Linear(8, 3)
+        self.dec3L = nn.Linear(32, 64)
         self.dec3A = nn.Tanh()
+        self.dec4L = nn.Linear(64, 3)
+        self.dec4A = nn.Tanh()
 
         #Bias variables
         self.bias_around = 0 #bias around this value of latent variable
@@ -48,6 +52,8 @@ class AE(nn.Module):
         z = self.enc2A(z)
         z = self.enc3L(z)
         z = self.enc3A(z)
+        z = self.enc4L(z)
+        z = self.enc4A(z)
         return z
 
     def decoder(self, z):
@@ -57,6 +63,8 @@ class AE(nn.Module):
         x = self.dec2A(x)
         x = self.dec3L(x)
         x = self.dec3A(x)
+        x = self.dec4L(x)
+        x = self.dec4A(x)
         return x
 
     def forward(self, x):
