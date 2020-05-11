@@ -19,11 +19,13 @@ class MB_traj_dataset(Dataset):
                 self.traj.append([float(i) for i in l.strip().split()])
         self.traj = np.array(self.traj)
         #normalize data
-        #mu = np.mean(self.traj, axis=0)
-        #std = np.std(self.traj, axis=0)
-        #self.traj = (self.traj - mu)/std
+        mu = np.mean(self.traj, axis=0)
+        std = np.std(self.traj, axis=0)
+        self.traj = (self.traj - mu)/std
         print(np.mean(self.traj, 0))
         print(np.std(self.traj, 0))
+
+        #make z-dimension unimportant
         self.traj[:,2] = self.traj[:,2] * 1e-4
 
     def __len__(self):
