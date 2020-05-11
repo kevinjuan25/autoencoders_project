@@ -23,4 +23,5 @@ m.close()
 for idx, bias in enumerate(biases):
     if not os.path.exists(next_dir+"/"+str(idx)):
         os.makedirs(next_dir+"/"+str(idx))
+    #bias_strength * (cv - bias_around)**2
     ae.save_torchscript_model(bias_around=bias, bias_strength=50, filename=next_dir+"/"+str(idx)+"/umbrella.pt")
