@@ -70,6 +70,7 @@ parser.add_argument("model", help="File containing trained autoencoder model")
 parser.add_argument("--show", action="store_true", help="Show interactive matplotlib plots")
 parser.add_argument("--dataprefix", help="Output prefix for boundary data")
 parser.add_argument("--imgprefix", help="Output prefix for images")
+parser.add_argument("--skipanimate", action="store_true", help="Skip animation generation")
 
 args = parser.parse_args()
 
@@ -146,12 +147,13 @@ xv = np.transpose(np.vstack((x, v)))
 np.savetxt(dataprefix+'_v.dat', xv, header='cv      v')
 
 """Select CV bias points based on formula in Ferguson and Chen"""
-bias_pts = [0.15, -0.15]
+bias_pts = [-4.135866165161132812e-01, -2.580527365207672119e-01, -1.802857816219329834e-01]
 
 """Save animations of true and reconstructed trajectories with bias points"""
-biases = np.array(bias_pts).reshape(-1, 1)
-biases = torch.from_numpy(biases).type(torch.FloatTensor)
-bias_orig = ae.net.decoder(biases).data.numpy()
+if not args.skipanimate:
+    biases = np.array(bias_pts).reshape(-1, 1)
+    biases = torch.from_numpy(biases).type(torch.FloatTensor)
+    bias_orig = ae.net.decoder(biases).data.numpy()
 
-mb = MullerBrown(imgprefix)
-mb.plot(trj=trajs, reconst_trj = reconst_trajs, biases = bias_orig * std + mu)
+    mb = MullerBrown(imgprefix)
+    mb.plot(trj=trajs, reconst_trj = reconst_trajs, biases = bias_orig * std + mu)

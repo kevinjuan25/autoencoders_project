@@ -21,10 +21,9 @@ class MB_traj_dataset(Dataset):
         #normalize data
         mu = np.mean(self.traj, axis=0)
         std = np.std(self.traj, axis=0)
+        print(mu)
+        print(std)
         self.traj = (self.traj - mu)/std
-        print(np.mean(self.traj, 0))
-        print(np.std(self.traj, 0))
-
         #make z-dimension unimportant
         self.traj[:,2] = self.traj[:,2] * 1e-4
 

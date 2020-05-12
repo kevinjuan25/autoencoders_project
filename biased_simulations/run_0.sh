@@ -1,6 +1,5 @@
 #!/bin/bash
 
-prevepochs=1000
 epochs=5000
 
 python train_autoencoder.py iter_0_unbiased/mb_traj.dat ${epochs} 128 \
@@ -12,4 +11,5 @@ python plots.py --file iter_0_unbiased/iter_0_convnet_${epochs}.pkl \
 
 python cv_boundaries.py iter_0_unbiased/mb_traj.dat \
 iter_0_unbiased/iter_0_convnet_${epochs}.pkl \
---imgprefix iter_0_unbiased/iter_0 --dataprefix iter_0_unbiased/iter_0
+--imgprefix iter_0_unbiased/iter_0 --dataprefix iter_0_unbiased/iter_0 \
+--skipanimate

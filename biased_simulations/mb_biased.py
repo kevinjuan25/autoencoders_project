@@ -84,7 +84,7 @@ mullerbrown = MullerBrown()
 for i in range(n):
     system.addParticle(mass)
     mullerbrown.addParticle(i, [])
-harmonic = TorchForce('harmonic.pt')
+harmonic = TorchForce('umbrella.pt')
 system.addForce(harmonic)
 system.addForce(mullerbrown)
 integrator = LangevinIntegrator(temperature, friction, timestep)
@@ -95,7 +95,7 @@ context.setPositions(init_coord)
 context.setVelocitiesToTemperature(temperature)
 xy = init_coord
 
-for i in range(1000):
+for i in range(2000):
     pos = context.getState(getPositions=True).getPositions(asNumpy=True).value_in_unit(nanometer)
     if i != 0:
         xy = np.vstack((xy, pos))
