@@ -40,9 +40,8 @@ class MB_traj_dataset(Dataset):
 
 # Test
 if __name__ == '__main__':
-    test_dataset = MB_traj_dataset('iter_0_unbiased/mb_traj.dat')
+    test_dataset = MB_traj_dataset('iter_1_biased/mb_traj_combined.dat')
     test_loader = DataLoader(test_dataset, batch_size=128, shuffle=True)
     for idx, (frames, _) in enumerate(test_loader):
-        print(frames)
         print(frames.shape)
         break

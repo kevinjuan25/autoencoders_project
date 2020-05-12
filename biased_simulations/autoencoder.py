@@ -23,23 +23,23 @@ class AE(nn.Module):
 
         # Encoder layers
         self.enc1L = nn.Linear(3, 64)
-        self.enc1A = nn.Tanh()
+        self.enc1A = nn.LeakyReLU()
         self.enc2L = nn.Linear(64, 32)
-        self.enc2A = nn.Tanh()
+        self.enc2A = nn.LeakyReLU()
         self.enc3L = nn.Linear(32, 16)
-        self.enc3A = nn.Tanh()
+        self.enc3A = nn.LeakyReLU()
         self.enc4L = nn.Linear(16, 1)
-        self.enc4A = nn.Tanh()
+        self.enc4A = nn.LeakyReLU()
 
         # Decoder layers
         self.dec1L = nn.Linear(1, 16)
-        self.dec1A = nn.Tanh()
+        self.dec1A = nn.LeakyReLU()
         self.dec2L = nn.Linear(16, 32)
-        self.dec2A = nn.Tanh()
+        self.dec2A = nn.LeakyReLU()
         self.dec3L = nn.Linear(32, 64)
-        self.dec3A = nn.Tanh()
+        self.dec3A = nn.LeakyReLU()
         self.dec4L = nn.Linear(64, 3)
-        self.dec4A = nn.Tanh()
+        self.dec4A = nn.LeakyReLU()
 
         #Bias variables
         self.bias_around = 0 #bias around this value of latent variable
@@ -75,9 +75,9 @@ class AE(nn.Module):
         x = x.float()
 
         #DEBUG
-        print(x.size())
-        print(self.norm_mu.size())
-        print(self.norm_std.size())
+        #print(x.size())
+        #print(self.norm_mu.size())
+        #print(self.norm_std.size())
 
         #normalization
         x = (x - self.norm_mu)/self.norm_std
