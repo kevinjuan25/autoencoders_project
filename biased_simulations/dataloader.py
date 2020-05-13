@@ -21,10 +21,9 @@ class MB_traj_dataset(Dataset):
         #normalize data
         mu = np.mean(self.traj, axis=0)
         std = np.std(self.traj, axis=0)
+        print(mu)
+        print(std)
         self.traj = (self.traj - mu)/std
-        print(np.mean(self.traj, 0))
-        print(np.std(self.traj, 0))
-
         #make z-dimension unimportant
         self.traj[:,2] = self.traj[:,2] * 1e-4
 
@@ -41,9 +40,8 @@ class MB_traj_dataset(Dataset):
 
 # Test
 if __name__ == '__main__':
-    test_dataset = MB_traj_dataset('iter_0_unbiased/mb_traj.dat')
+    test_dataset = MB_traj_dataset('iter_1_biased/mb_traj_combined.dat')
     test_loader = DataLoader(test_dataset, batch_size=128, shuffle=True)
     for idx, (frames, _) in enumerate(test_loader):
-        print(frames)
         print(frames.shape)
         break
